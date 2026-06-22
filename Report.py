@@ -6,12 +6,12 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Load dataset
-data = pd.read_csv("osteoporosisfinal - osteoporosisfinal (1).csv")
+data = pd.read_excel("osteoporosisfinal.xlsx")
 
 # Drop unnecessary columns and NaN values
 data_final = data.drop(["Id", "Race", "Medications"], axis=1)
 data_final = data_final.dropna()
-
+print("print all correct value:- ")
 print(data_final)
 
 from sklearn.preprocessing import LabelEncoder
@@ -27,7 +27,8 @@ data_final['Smoking'] = le.fit_transform(data_final['Smoking'])
 data_final['MedCondition'] = le.fit_transform(data_final['MedCondition'])
 data_final['Fractures'] = le.fit_transform(data_final['Fractures'])
 data_final['Activity'] = le.fit_transform(data_final['Activity'])
-print(data_final)
+print("Convert into 0 & 1 formate using labelencoder to perfome operation:- ")
+print(data_final.head(10))
 
 # Features and target
 x = data_final.iloc[:, :-1].values
@@ -44,7 +45,7 @@ model.fit(x_train, y_train)
 y_pred = model.predict(x_test)
 # Example input prediction
 inp = [[12,0,1,1,1,1,0,1,1,1]]
-print("Sample Prediction:", model.predict(inp))
+print("Sample Prediction Using KNN:", model.predict(inp))
 
 
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
